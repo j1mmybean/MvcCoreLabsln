@@ -4,7 +4,7 @@
 	ViewData["Title"] = "List";
 }
 
-<h1>List</h1>
+<h1>客戶系統</h1>
 
 <p>
 	<a asp-action="Create">新增客戶</a>
@@ -59,7 +59,7 @@
 						@Html.DisplayFor(modelItem => item.FPassword)
 					</td>
 					<td>
-						@Html.ActionLink("編輯", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("編輯", "Edit", "Customer",new { id = item.FId }) |
 						@Html.ActionLink("刪除", "Delete","Customer", new { id = item.FId }, new { onclick = "return confirm('確定要刪除嗎?')" })
 					</td>
 				</tr>
