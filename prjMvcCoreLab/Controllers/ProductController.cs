@@ -3,7 +3,7 @@ using prjMvcCoreLab.Models;
 
 namespace prjMvcCoreLab.Controllers
 {
-	public class ProductController : Controller
+	public class ProductController : SuperController
 	{
         private readonly IWebHostEnvironment enviro;
 
@@ -60,19 +60,20 @@ namespace prjMvcCoreLab.Controllers
 			return RedirectToAction("List");
         }
         [HttpPost]
-        public IActionResult Edit(TProduct pIn)
+        public IActionResult Edit(CProductWrap pIn)
         {
             dbDemoContext db = new dbDemoContext();
             TProduct prod = db.TProducts.FirstOrDefault(p => p.FId == pIn.FId);
             if (prod != null)
-            {
-                //if (pIn.photo != null)
-                //{
-                //    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                //    pIn.photo.SaveAs(Server.MapPath("../../Images/" + photoName));
-                //    prod.FImagePath = photoName;
-                //}
-                prod.FName = pIn.FName;
+			{
+				if (pIn.photo != null)
+				{
+					string photoName = Guid.NewGuid().ToString() + ".jpg";
+					string path = enviro.WebRootPath + "/images/" + photoName;
+					pIn.photo.CopyTo(new FileStream(path, FileMode.Create));
+					prod.FImagePath = photoName;
+				}
+				prod.FName = pIn.FName;
                 prod.FQty = pIn.FQty;
                 prod.FCost = pIn.FCost;
                 prod.FPrice = pIn.FPrice;

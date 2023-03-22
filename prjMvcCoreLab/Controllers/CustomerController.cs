@@ -3,7 +3,7 @@ using prjMvcCoreLab.Models;
 
 namespace prjMvcCoreLab.Controllers
 {
-	public class CustomerController : Controller
+	public class CustomerController : SuperController
 	{
 		public IActionResult Edit(int? id)
 		{
